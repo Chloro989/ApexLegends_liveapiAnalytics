@@ -4,8 +4,9 @@ import os
 from collections import defaultdict
 from datetime import datetime, timedelta
 
+
 def calculate_team_ranks(input_dir, output_dir):
-    
+
     output_file = os.path.join(output_dir, "teamRanks.csv")
 
     # 出力フォルダがなければ作成
@@ -42,7 +43,9 @@ def calculate_team_ranks(input_dir, output_dir):
                 ):
                     continue
 
-                teams = defaultdict(lambda: {"teamName": None, "timestamp": float("inf")})
+                teams = defaultdict(
+                    lambda: {"teamName": None, "timestamp": float("inf")}
+                )
                 for event in data:
                     if event["category"] == "squadEliminated":
                         for player in event["players"]:

@@ -11,6 +11,7 @@ output_dir = "./match_2_aggregate/output"
 kd_output_folder_path = "./kill_and_damages"
 ch_output_file_path = "characters.json"
 
+
 # カスタム出力クラス
 class CustomOutput:
     def __init__(self, log_area):
@@ -28,17 +29,23 @@ class CustomOutput:
         # フラッシュメソッドは、標準出力のフラッシュに委譲する
         self.standard_output.flush()
 
+
 # プレイヤーデータの集計を実行する関数
 def aggregate_player_data(log_area):
     sys.stdout = CustomOutput(log_area)
     # 処理を実行
-    jsonCutter.filter_and_save_data(input_folder_path, kd_output_folder_path, ch_output_file_path)
+    jsonCutter.filter_and_save_data(
+        input_folder_path, kd_output_folder_path, ch_output_file_path
+    )
     charactersAnalysis.analyze_characters()
-    killndamageAnalysis.analyze_kill_and_damage(kd_output_folder_path, "killndamages.csv")
+    killndamageAnalysis.analyze_kill_and_damage(
+        kd_output_folder_path, "killndamages.csv"
+    )
     csvFormatt.sort_csv_data()
     makePlayerStats.make_player_stats()
     print("Player data processing completed!")
     sys.stdout = sys.__stdout__
+
 
 # マッチデータの集計を実行する関数
 def aggregate_match_data(log_area):
@@ -50,12 +57,15 @@ def aggregate_match_data(log_area):
     print("Match data processing completed!")
     sys.stdout = sys.__stdout__
 
+
 def app(page: ft.Page):
     page.title = "Data Aggregator"
     page.vertical_alignment = ft.MainAxisAlignment.START
 
     # ログエリアの定義
-    log_area = ft.TextField(value="", expand=True, multiline=True, read_only=True, label="Logs")
+    log_area = ft.TextField(
+        value="", expand=True, multiline=True, read_only=True, label="Logs"
+    )
 
     # プレイヤーデータ集計ボタン
     aggregate_player_data_button = ft.CupertinoButton(
@@ -63,8 +73,9 @@ def app(page: ft.Page):
         bgcolor=ft.colors.INDIGO_100,
         disabled_color=ft.colors.DEEP_PURPLE,
         filled=True,
-        on_click=lambda e: threading.Thread(target=aggregate_player_data, args=(log_area,)).start()
-        
+        on_click=lambda e: threading.Thread(
+            target=aggregate_player_data, args=(log_area,)
+        ).start(),
     )
 
     # マッチデータ集計ボタン
@@ -73,11 +84,13 @@ def app(page: ft.Page):
         bgcolor=ft.colors.INDIGO_100,
         disabled_color=ft.colors.DEEP_PURPLE,
         filled=True,
-        on_click=lambda e: threading.Thread(target=aggregate_match_data, args=(log_area,)).start()
+        on_click=lambda e: threading.Thread(
+            target=aggregate_match_data, args=(log_area,)
+        ).start(),
     )
 
     page.add(aggregate_player_data_button, aggregate_match_data_button, log_area)
 
+
 if __name__ == "__main__":
     ft.app(target=app)
-

@@ -3,6 +3,7 @@ import csv
 import os
 from collections import defaultdict
 
+
 def aggregate_team_kills(input_dir, output_dir):
     # 出力フォルダがなければ作成
     os.makedirs(output_dir, exist_ok=True)
