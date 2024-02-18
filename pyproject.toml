@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "apex"
+version = "0.1.0"
+description = ""
+authors = ["krkt <84625053+Chloro989@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+simplejson = "^3.19.2"
+ujson = "^5.9.0"
+black = "^24.2.0"
+flet = "^0.20.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
